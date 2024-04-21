@@ -1,0 +1,8 @@
+service_name: "Carsharing-API"
+
+System: 
+
+HttpServer:
+
+DbLocal:
+
