@@ -16,10 +16,18 @@ type Postgres struct {
 	PgDriver string `json:"pgDriver"`
 }
 
+type SystemAPI struct {
+	ServiceName string `json:"ServiceName"`
+	Url         string `json:"url"`
+	ApiKey      string `json:"api-key"`
+}
+
 type Config struct {
 	ServiceName string `json:"serviceName"`
 
 	DbLocal Postgres `json:"dbLocal"`
+
+	DocsVerifyService SystemAPI `json:"DocsVerifyService"`
 
 	System struct {
 		MaxGoRoutines int64  `json:"MaxGoRoutines"`

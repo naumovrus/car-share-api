@@ -1,2 +1,3 @@
 config/prod.config.yaml
 .env
+postgres/data

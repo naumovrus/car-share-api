@@ -15,9 +15,12 @@ func New(psql storage_postgres.Postgres) auth.PgRepo {
 }
 
 func (r *repo) CreateUserCreds(params entity.Client) (*string, error) {
-	_ = `insert into "user" (email, password)`
+	query := `insert into "user" (email, password)`
+	r.psql.Exec(query, params.Email, params.Id)
 
 	return nil, nil
 }
 
-func (r *repo) UpdateUserCreds()
+func (r *repo) UpdateUserCreds() error {
+
+}
