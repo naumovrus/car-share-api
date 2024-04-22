@@ -6,18 +6,20 @@ import (
 	"github.com/spf13/viper"
 )
 
+type Postgres struct {
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	DBName   string `json:"DBName"`
+	SSLMode  string `json:"sslMode"`
+	PgDriver string `json:"pgDriver"`
+}
+
 type Config struct {
 	ServiceName string `json:"serviceName"`
 
-	Postgres struct {
-		Host     string `json:"host"`
-		Port     string `json:"port"`
-		User     string `json:"user"`
-		Password string `json:"password"`
-		DBName   string `json:"DBName"`
-		SSLMode  string `json:"sslMode"`
-		PgDriver string `json:"pgDriver"`
-	} `json:"Postgres"`
+	DbLocal Postgres `json:"dbLocal"`
 
 	System struct {
 		MaxGoRoutines int64  `json:"MaxGoRoutines"`

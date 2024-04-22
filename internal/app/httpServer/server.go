@@ -17,11 +17,11 @@ type Server struct {
 	apiLogger *logger.ApiLogger
 }
 
-func NewServer(cfg *config.Config, apiLogger *logger.ApiLogger, handler *httpErrorHandler.HttpErrorHandler, shield *secure.Shield) *Server {
+func NewServer(cfg *config.Config, apiLogger *logger.ApiLogger, handler *httpErrorHandler.HttpErrorHandler) *Server {
 	return &Server{
 		fiber: fiber.New(fiber.Config{
 			ErrorHandler:          handler.Handler,
-			DisableStartupMessage: false,
+			DisableStartupMessage: false, 
 			JSONEncoder:           gojson.Marshal,
 			JSONDecoder:           gojson.Unmarshal,
 		}),
