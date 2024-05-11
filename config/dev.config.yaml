@@ -6,3 +6,6 @@ HttpServer:
 
 DbLocal:
 
+
+Security:
+  Salt: "abvcdsq1nxdlloi1,23$#@!%^"

@@ -2,6 +2,14 @@ package entity
 
 import "time"
 
+type UserDto struct {
+	Id           int64       `json:"id" db:"id"`
+	Email        string      `json:"email"`
+	Role         string      `json:"role"`
+	Password     string      `json:"-"`
+	Uuid         string      `json:"uuid"`
+	PersonalData interface{} `json:"user_personal_data"`
+}
 type Client struct {
 	Id         int64   `json:"id" db:"id"`
 	Email      string  `json:"email" db:"email"`
