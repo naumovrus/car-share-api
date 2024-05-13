@@ -64,3 +64,21 @@ func (r *repo) SaveAuthToken(params authModel.SaveSessionParams) error {
 	}
 	return nil
 }
+
+func (r *repo) GetAllClient() ([]entity.Client, error) {
+	var response []entity.Client
+	err := r.psql.Select(&response, `select id, email, u.client_uuid, uc.data from "user" u inner join user_credentials on client_uuid=uc.client_uuid`)
+	if err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+func (r *repo) IsAdmin(uuid string) (bool, error) {
+	var roleId int64
+	err := r.psql.Get(&roleId, `select role_id from "user" where uuid=$1`, uuid)
+	if err != nil {
+		return false, err
+	}
+	return roleId == 1, nil
+}

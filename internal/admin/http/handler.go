@@ -2,11 +2,13 @@ package http
 
 import (
 	"car-api/internal/admin"
+	"car-api/internal/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type handler struct {
+	mw middleware.MW
 }
 
 func New() admin.Handler {
@@ -15,10 +17,11 @@ func New() admin.Handler {
 
 func (r *handler) AdminView() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		c.Render("index", fiber.Map{
-			"IsAdmin":         isAdmin,
-			"ClientId":        clientId,
-			"IsAuthenticated": isAuthenticated,
+
+		return c.Render("index", fiber.Map{
+			"IsAdmin":         nil,
+			"ClientId":        nil,
+			"IsAuthenticated": nil,
 		})
 	}
 }
