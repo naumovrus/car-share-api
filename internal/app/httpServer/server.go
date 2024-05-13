@@ -17,17 +17,19 @@ type Server struct {
 	apiLogger *logger.ApiLogger
 }
 
-func NewServer(cfg *config.Config, apiLogger *logger.ApiLogger, handler *httpErrorHandler.HttpErrorHandler) *Server {
+func NewServer(cfg *config.Config, apiLogger *logger.ApiLogger, handler *httpErrorHandler.HttpErrorHandler, engine fiber.Views) *Server {
 	return &Server{
 		fiber: fiber.New(fiber.Config{
 			ErrorHandler:          handler.Handler,
-			DisableStartupMessage: false, 
+			DisableStartupMessage: false,
 			JSONEncoder:           gojson.Marshal,
 			JSONDecoder:           gojson.Unmarshal,
+			Views:                 engine,
 		}),
 		cfg:       cfg,
 		apiLogger: apiLogger,
 	}
+
 }
 
 func (s *Server) Run() error {
@@ -38,6 +40,6 @@ func (s *Server) Run() error {
 	if err := s.fiber.Listen(fmt.Sprintf("%s:%s", s.cfg.Server.Host, s.cfg.Server.Port)); err != nil {
 		s.apiLogger.Fatalf("Error starting Server: %+v", err)
 	}
-
+	s.fiber.Static("/static", "../internal/static")
 	return nil
 }
